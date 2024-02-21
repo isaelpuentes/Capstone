@@ -1,2 +1,2 @@
 # Capstone
-capstone project
+My capstone project using angular.
