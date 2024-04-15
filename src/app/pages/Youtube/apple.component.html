@@ -1,0 +1,25 @@
+<h1 class="text-center">YouTube API call</h1>
+<section *ngIf="!isAuthorized">
+  <div>
+    <button (click)="trySampleRequest()">Log In</button>
+  </div>
+</section>
+  <section *ngIf="isAuthorized">
+    <div>
+      <button (click)="clearOAuthData()">Log Out</button>
+    </div>
+</section>
+
+<!-- Playlist Display Section -->
+<section *ngIf="isAuthorized">
+  <h2>Your Playlists</h2>
+  <ul>
+    <li *ngFor="let playlist of playlists">
+      <!-- Display the title of a playlist-->
+      <p>{{ playlist.snippet.title }}</p>
+      <!-- display playlist thumbnail if available -->
+      <img *ngIf="playlist.snippet.thumbnails.default" [src]="playlist.snippet.thumbnails.default.url"
+        alt="{{ playlist.snippet.title }}">
+    </li>
+  </ul>
+</section>

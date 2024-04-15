@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<section id="profile" *ngIf="isAuthenticated">
+  <h1>Displaying your Spotify profile data</h1>
+  <h2>Logged in as <span id="displayName"></span></h2>
+  <span id="avatar"></span>
+  <ul>
+    <li>Email: <span id="email"></span></li>
+    <li>Spotify URI: <a id="uri" href="#"></a></li>
+  </ul>
+  <h1>Your Playlists</h1>
+  <ul>
+    <li *ngFor="let playlist of playlists">
+      <a href="{{ playlist.external_urls.spotify }}">{{ playlist.name }}</a>
+    </li>
+  </ul>
+</section>
+
+</html>
+
