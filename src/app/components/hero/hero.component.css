@@ -1,3 +1,17 @@
-.hero .app-logo {
-  max-width: 10.5rem;
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center {
+  margin-bottom: 20px; /* Add some space below the video */
+}
+
+/* Responsive styling for the video */
+@media (max-width: 600px) {
+  iframe {
+    width: 100%;
+    height: auto;
+  }
 }

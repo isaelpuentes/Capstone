@@ -1,0 +1,31 @@
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo-img {
+    width: 60px;
+    height: auto;
+}
+
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.left-text, .right-text {
+    flex: 1;
+    display: flex;
+    justify-content: center; 
+}
+
+.left-text {
+    justify-content: flex-start; 
+}
+
+.right-text {
+    justify-content: flex-end; 
+}

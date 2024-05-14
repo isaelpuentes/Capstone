@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { FormsModule } from '@angular/forms'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -42,6 +42,7 @@ import { AppleComponent } from './pages/Youtube/apple.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
     HighlightModule,
     FontAwesomeModule,
     NgxSpinnerModule,

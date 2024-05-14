@@ -7,9 +7,11 @@ import config from '../../auth_config.json';
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
-
-  ping$() {
-    return this.http.get(`${config.apiUri}/api/external`);
-  }
-  
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class YoutubeApiService {
+  constructor(private http: HttpClient) {}
+  // Add methods for interacting with the YouTube API
 }

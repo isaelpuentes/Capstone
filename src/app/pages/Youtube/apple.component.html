@@ -1,25 +1,72 @@
-<h1 class="text-center">YouTube API call</h1>
-<section *ngIf="!isAuthorized">
-  <div>
-    <button (click)="trySampleRequest()">Log In</button>
-  </div>
-</section>
-  <section *ngIf="isAuthorized">
-    <div>
-      <button (click)="clearOAuthData()">Log Out</button>
-    </div>
-</section>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Playlist Display Section -->
-<section *ngIf="isAuthorized">
-  <h2>Your Playlists</h2>
-  <ul>
-    <li *ngFor="let playlist of playlists">
-      <!-- Display the title of a playlist-->
-      <p>{{ playlist.snippet.title }}</p>
-      <!-- display playlist thumbnail if available -->
-      <img *ngIf="playlist.snippet.thumbnails.default" [src]="playlist.snippet.thumbnails.default.url"
-        alt="{{ playlist.snippet.title }}">
-    </li>
-  </ul>
-</section>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Data</title>
+</head>
+
+<body>
+  <h1 class="text-center">YouTube API call</h1>
+  <section *ngIf="!isAuthorized" class="login-section">
+    <div>
+      <button (click)="playlistrequest()">Log In</button>
+    </div>
+  </section>
+
+  <!-- Playlist Display Section -->
+  <section *ngIf="isAuthorized">
+    <h2>Your Playlists</h2>
+    <div>
+      <form>
+        <ul>
+          <li *ngFor="let playlist of playlists">
+            <label>
+              <input type="checkbox" [(ngModel)]="playlist.selected" name="playlist-{{playlist.id}}">
+              {{ playlist.snippet.title }}
+            </label>
+            <br>
+            <img *ngIf="playlist.snippet.thumbnails.default" [src]="playlist.snippet.thumbnails.default.url"
+              alt="{{ playlist.snippet.title }}">
+            <div class="text-right">
+              <button (click)="playlist.showOptions = !playlist.showOptions">{{ playlist.showOptions ? 'Hide Options' :
+                'Show Options' }}</button>
+            </div>
+            <div *ngIf="playlist.showOptions" class="text-center">
+              <button class="button button1" (click)="togglePreview(playlist)">
+                {{ playlist.showPreview ? 'Hide Preview' : 'Preview' }}
+              </button>
+              <button class="button button1" (click)="copyPlaylistToClipboard(playlist.id)">Copy Songs</button>
+              <button class="button button1" (click)="deletePlaylist(playlist.id)">Delete</button>
+            </div>
+            <div *ngIf="playlist.showPreview">
+              <ul>
+                <li *ngFor="let track of playlist.tracks">
+                  {{ track.title }} - {{ track.channelTitle }}
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <form (submit)="createPlaylist()">
+      <h3>Create Playlist</h3>
+      <label>
+        Playlist Name:
+        <input type="text" [(ngModel)]="newPlaylistName" name="playlistName" required>
+      </label>
+      <button type="submit">Create Playlist</button>
+    </form>
+  </section>
+
+  <section *ngIf="isAuthorized">
+    <div class="logout-buttons">
+      <!--<button class="left-btn">Transfer</button>-->
+      <button class="right-btn" (click)="clearOAuthData()">Log Out</button>
+    </div>
+  </section>
+
+</body>
+
+</html>

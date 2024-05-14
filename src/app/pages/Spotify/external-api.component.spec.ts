@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
 import { ExternalApiComponent } from './external-api.component';
 import { AuthClientConfig, AuthService } from '@auth0/auth0-angular';
 

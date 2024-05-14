@@ -1,21 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<section id="profile" *ngIf="isAuthenticated">
-  <h1>Displaying your Spotify profile data</h1>
-  <h2>Logged in as <span id="displayName"></span></h2>
+<body>
+  <h1 class="text-center">Spotify</h1>
+  <h3 class="text-center">Logged in as: <span id="displayName"></span></h3>
   <span id="avatar"></span>
   <ul>
     <li>Email: <span id="email"></span></li>
     <li>Spotify URI: <a id="uri" href="#"></a></li>
   </ul>
-  <h1>Your Playlists</h1>
-  <ul>
+  <h3>Your Playlists</h3>
+  <!-- Playlist Display Section -->
+  <div>
     <li *ngFor="let playlist of playlists">
-      <a href="{{ playlist.external_urls.spotify }}">{{ playlist.name }}</a>
+      <label>
+        <input type="checkbox" [value]="playlist.id"> {{ playlist.name }}
+      </label>
+      <div class="text-right">
+        <button (click)="playlist.showOptions = !playlist.showOptions">{{ playlist.showOptions ? 'Hide Options' : 'Show Options' }}</button>
+      </div>
+      <div *ngIf="playlist.showOptions" class="text-center">
+        <button class="button button1" (click)="togglePreview(playlist.id)">
+          {{ playlist.showPreview ? 'Hide Preview' : 'Preview' }}
+        </button>
+        <button class="button button1" (click)="copyPlaylistToClipboard(playlist.id)">Copy Songs</button>
+        <button class="button button1" (click)="openAddSongsPopup(playlist.id)">Add Songs to Playlist</button>
+        <button class="button button1" (click)="confirmDeletePlaylist(playlist.id)">Delete Playlist</button>
+      </div>
+      <div *ngIf="playlist.preview">
+        <ul>
+          <li *ngFor="let track of playlist.preview">
+            {{ track.name }} - {{ track.artist }}
+          </li>
+        </ul>
+      </div>
     </li>
-  </ul>
-</section>
+    <form (submit)="createPlaylist($event)">
+      <h3>Create Playlists</h3>
+      <label>
+        Playlist Name:
+        <input type="text" [(ngModel)]="newPlaylistName" name="playlistName" required>
+      </label>
+      <button type="submit">Create Playlist</button>
+    </form>
+  </div>
+
+  <h3></h3>
+  <div>
+    <div>
+      <section *ngIf="isAuthorizedSpotify" class="logout-section">
+        <div class="logout-buttons">
+          <button class="right-btn" (click)="clearOAuthData()">Log Out</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
 
 </html>
-
